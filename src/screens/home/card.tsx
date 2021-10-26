@@ -1,22 +1,20 @@
 import React, {FC} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 //@ts-ignore
 import style from './styles';
 import {palette} from '../../components/theme/palette';
 import {HDP} from '@helpers';
 import {H2, P, SvgIcon} from '@components';
 import {color} from '../../components/theme/colors';
+import {SizedBox} from '@components/lib/lib';
 
 interface props {}
 export const Card: FC<props> = () => {
   return (
     <View style={styles.Container}>
       <View style={styles.col1}>
-        <H2
-          value="Living the best life"
-          marginBottom={HDP(8)}
-          color={palette.white}
-        />
+        <H2 value="Living the best life" color={palette.white} />
+        <SizedBox height={1} />
         <P
           value="The best is yet to come and its is my 
           responsibility to align with all that God is 

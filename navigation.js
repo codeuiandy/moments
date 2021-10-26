@@ -6,7 +6,7 @@ import {NavMenu} from '@components/menu';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Home, Onboarding} from '@screens';
+import {Home, Onboarding, TextNote} from '@screens';
 import {AuthContext} from './src/contexts/AuthContext';
 import {DrawerContent} from '@components/menuDrawer';
 import {getHeaderTitle} from '@react-navigation/elements';
@@ -101,7 +101,14 @@ export default function App() {
               return <Header headerProps={props} title={title} />;
             },
           }}>
-          <Drawer.Screen name="HomeStack" component={Home} />
+          <Drawer.Screen name="Home" component={Home} />
+          <Drawer.Screen
+            name="TextNote"
+            component={TextNote}
+            screenOptions={{
+              headerShown: false,
+            }}
+          />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

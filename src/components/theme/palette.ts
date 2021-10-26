@@ -40,4 +40,6 @@ export const palette = {
   labelDefault: '#003A4B',
   typeActive: 'rgba(188, 223, 216, 0.5)',
   aquaHaze: '#F6F8FA',
+  placeholderColor:"#979797 ",
+  inputBorder:"rgba(128, 128, 128, 0.349)",
 };

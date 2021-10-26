@@ -110,12 +110,12 @@ export const Onboarding: FC = () => {
             Onclick={() => {
               setCurrentState('home');
             }}
-            paddingTop={15}
-            paddingBottom={15}
+            paddingTop={HDP(15)}
+            paddingBottom={HDP(15)}
             paddingLeft={10}
             paddingRight={10}
             borderColor={`red`}
-            width={HDP(200)}
+            width={HDP(170)}
             borderRadius={10}
           />
         </View>
