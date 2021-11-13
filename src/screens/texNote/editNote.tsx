@@ -19,7 +19,7 @@ import {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppContext} from '../../../src/contexts/AppContext';
 import Modal from 'react-native-modal';
-export const TextNote: FC = props => {
+export const TextNoteEdit: FC = props => {
   const noteBodyRef = useRef(null);
   const [showColorPicker, setshowColorPicker] = useState(false);
   const [note, setNote] = useState({
@@ -28,13 +28,15 @@ export const TextNote: FC = props => {
     textColor: 'white',
     backgroundColor: 'white',
     time: new Date().getTime(),
-    id: Math.random(),
+    id:Math.random() 
   });
 
   const [previousNote, setPreviousNote] = useState([]);
   const [isModalVisible, setModalVisible] = useState(true);
-  const {saveNote, setSaveNote} = useContext(AppContext);
+  const {saveNote,setSaveNote} = useContext(AppContext);
   useEffect(() => {
+    
+      
     getPreviousNotes();
     const willBlurSubscription = props.navigation.addListener('blur', () => {
       console.log('Closed Page');
@@ -46,7 +48,6 @@ export const TextNote: FC = props => {
         time: new Date().getTime(),
       });
       setPreviousNote([]);
-      setSaveNote(false);
     });
 
     return willBlurSubscription;
@@ -56,10 +57,28 @@ export const TextNote: FC = props => {
     getPreviousNotes();
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       getPreviousNotes();
-      setSaveNote(false);
+      getEditNotes()
+      setSaveNote(false)
     });
     return willFocusSubscription;
   }, []);
+
+
+
+  useEffect(() => {
+    const willFocusSubscriptiond = props.navigation.addListener('blur', () => {
+      setPreviousNote([])
+    //   setShow(false)
+      props.navigation.params= null
+      console.log(">>>>>>>EEEEss");
+      setSaveNote(false)
+  });
+  
+  
+  
+  return willFocusSubscriptiond;
+  }, []);
+
 
   const getPreviousNotes = async () => {
     try {
@@ -71,7 +90,25 @@ export const TextNote: FC = props => {
         setPreviousNote(jsNote);
       }
     } catch (e) {
-      console.log('>>>>>>>EEEEss');
+    //   console.log('>>>>>>>EEEEss');
+    }
+  };
+
+
+  const getEditNotes = async () => {
+    try {
+       
+      const jsonValue = await AsyncStorage.getItem('@edit_note');
+      if (jsonValue != null) {
+        console.log(jsonValue);
+        let jsNote = JSON.parse(jsonValue);
+
+        console.log("jsNotedddd jsNotejsNote>>>>>>>>",jsNote);
+        
+        setNote(jsNote);
+      }
+    } catch (e) {
+    //   console.log('>>>>>>>EEEEss');
     }
   };
 
@@ -82,6 +119,8 @@ export const TextNote: FC = props => {
   }, [saveNote]);
 
   const saveNoteFun = async value => {
+
+
     if (note.noteTitle == '') {
       return Alert.alert('Opps', 'Note title is required');
     }
@@ -89,11 +128,15 @@ export const TextNote: FC = props => {
     if (note.noteBody == '') {
       return Alert.alert('Opps', 'Note body is required');
     }
-    const noteAr = [value, ...previousNote];
+    const filterNotes = previousNote.filter((data)=>{
+        return data.id != note.id
+    })
+    
+    console.log("filterNotes>>",filterNotes);
+    const noteAr = [note, ...filterNotes];
     console.log(noteAr);
     try {
       const jsonValue = JSON.stringify(noteAr);
-      // return console.log(jsonValue);
       await AsyncStorage.setItem('@text_note', jsonValue);
       props.navigation.goBack();
     } catch (e) {
@@ -127,7 +170,7 @@ export const TextNote: FC = props => {
                 <TextInput
                   refValue={noteBodyRef}
                   onChangeText={value => setNote({...note, noteBody: value})}
-                  placeholder="The best is yet to come and its is my respon..."
+                  placeholder="The best is yet to come and its is my responsibility..."
                   label="Your note body"
                   multiline={true}
                   value={note.noteBody}

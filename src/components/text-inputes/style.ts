@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   labelDefault:{
       paddingBottom: 5,
-      fontSize: RF(12),
+      fontSize: RF(10.5),
       fontFamily: family.SFProRoundedRegular,
       lineHeight:20,
       color: palette.placeholderColor,

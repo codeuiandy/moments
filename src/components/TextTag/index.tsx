@@ -10,7 +10,7 @@ interface Props {
   ButtonStyle?: any;
   value: string;
   Onclick?: Function;
-  color?: any;
+  color?: string;
   width?: number;
   height?: number;
   paddingTop?: any;
@@ -44,7 +44,6 @@ export const P: FC<Props> = ({
   color,
 }) => {
   return (
-    <TouchableOpacity>
       <Text
         style={{
           paddingTop: paddingTop ? HDP(paddingTop) : 0,
@@ -64,7 +63,6 @@ export const P: FC<Props> = ({
         }}>
         {value}
       </Text>
-    </TouchableOpacity>
   );
 };
 
@@ -106,7 +104,6 @@ export const H1: FC<Props> = ({
   color,
 }) => {
   return (
-    <TouchableOpacity>
       <Text
         style={{
           paddingTop: paddingTop ? HDP(paddingTop) : 0,
@@ -126,7 +123,6 @@ export const H1: FC<Props> = ({
         }}>
         {value}
       </Text>
-    </TouchableOpacity>
   );
 };
 
@@ -169,7 +165,6 @@ export const H2: FC<Props> = ({
   color,
 }) => {
   return (
-    <TouchableOpacity>
       <Text
         style={{
           paddingTop: paddingTop ? HDP(paddingTop) : 0,
@@ -189,6 +184,5 @@ export const H2: FC<Props> = ({
         }}>
         {value}
       </Text>
-    </TouchableOpacity>
   );
 };

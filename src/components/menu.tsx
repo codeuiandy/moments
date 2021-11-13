@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext, useCallback} from "react";
 import {View, Text, TouchableOpacity} from "react-native";
-import {Container, H1, H2, P, ImageWrap, InputWrap, TouchWrap, SizedBox} from "./lib/lib";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 // import AppColors from "../helpers/_colors";

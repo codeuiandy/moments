@@ -20,7 +20,24 @@ const styles = StyleSheet.create({
     },
     noteBottomActionsChild:{
      flexDirection:"row",
-    }
+    },
+
+    onBoardCol1: {
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center',
+        width: `100%`,
+      },
+    
+      onBoardCol2: {
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center',
+        // backgroundColor: 'red',
+        // paddingBottom: 30,
+      },
+
+      
 })
 
 export default styles

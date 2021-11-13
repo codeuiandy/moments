@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {palette} from './theme/palette';
 import {SvgIcon} from './svg-icon/index';
 import {HDP} from '../helpers/index';
+import {AppContext} from '../../src/contexts/AppContext'
 function Header({headerProps, title}) {
+  const {setSaveNote} = useContext(AppContext)
   console.log(title);
   return title == 'Home' ? (
     <View style={styles.headerContainer}>
@@ -30,7 +32,7 @@ function Header({headerProps, title}) {
         </View>
       </View>
     </View>
-  ) : title == 'TextNote' ? (
+  ) : title == 'TextNote' || title == "TextNoteEdit" ? (
     <View style={styles.headerContainer}>
       <View>
         <View style={styles.headerBurgerCon}>
@@ -44,10 +46,12 @@ function Header({headerProps, title}) {
         <TouchableOpacity>
           <SvgIcon name="label" width={24} height={24} />
         </TouchableOpacity>
-
-        <View style={styles.headerLogo}>
+<TouchableOpacity onPress={()=>setSaveNote(true)}>
+<View style={styles.headerLogo}>
           <SvgIcon name="save" width={24} height={24} />
         </View>
+</TouchableOpacity>
+       
       </View>
     </View>
   ) : null;

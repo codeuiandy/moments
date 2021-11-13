@@ -4,34 +4,46 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import style from './styles';
 import {palette} from '../../components/theme/palette';
 import {HDP} from '@helpers';
-import {H2, P, SvgIcon} from '@components';
+import {H2, P, SizedBox, SvgIcon} from '@components';
 import {color} from '../../components/theme/colors';
-import {SizedBox} from '@components/lib/lib';
-
-interface props {}
-export const Card: FC<props> = () => {
+import moment from 'moment';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+interface props {data:any,index:any,navigation:any}
+export const Card: FC<props> = ({data,index,navigation}) => {
+  const {id}=data
+  const saveNoteFun = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      // return console.log(jsonValue);
+      await AsyncStorage.setItem('@edit_note', jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
   return (
-    <View style={styles.Container}>
+    <View  style={[styles.Container,{backgroundColor:data?.backgroundColor == "" || data?.backgroundColor == "white"?"#635DAF":data?.backgroundColor}]}>
       <View style={styles.col1}>
-        <H2 value="Living the best life" color={palette.white} />
-        <SizedBox height={1} />
+        <H2 value={`${data?.noteTitle}`} color={data?.textColor == "" || data?.textColor == "white"?"white":data?.textColor} />
+        <SizedBox height={5}/>
+
         <P
-          value="The best is yet to come and its is my 
-          responsibility to align with all that God is 
-          doing in this time and season don’t sleep on 
-          God boy!There is more in you ..."
-          color={palette.white}
+          value={`${data?.noteBody}`}
+          color={data?.textColor == "" || data?.textColor == "white"?"white":data?.textColor}
           fontSize={HDP(13)}
         />
       </View>
-
       <View style={styles.col2}>
         <View>
-          <P value="10:30" color={palette.white} fontSize={HDP(13)} />
+          <P value={`${moment(data?.time).format('hh:mm DD-MM-YYYY')}`} color={palette.white} fontSize={HDP(13)} />
         </View>
+        <TouchableOpacity onPress={()=>{navigation.navigate(
+    'TextNoteEdit');
+    saveNoteFun(data)}}>
         <View style={styles.pen}>
           <SvgIcon name="pen" />
         </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

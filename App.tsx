@@ -7,6 +7,7 @@ import {family, palette} from '@components/theme';
 import {HDP, RF, WP} from '@helpers';
 import Navigation from './navigation';
 import {AuthContextProvider} from './src/contexts/AuthContext';
+import {AppContextProvider} from './src/contexts/AppContext'
 const App = () => {
   return (
     <SafeAreaView
@@ -26,7 +27,9 @@ const App = () => {
           // backgroundColor: 'red',
         }}>
         <AuthContextProvider>
+          <AppContextProvider>
           <Navigation />
+          </AppContextProvider>
         </AuthContextProvider>
       </View>
     </SafeAreaView>
